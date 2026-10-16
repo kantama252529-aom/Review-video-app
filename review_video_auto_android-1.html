@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f6efe6">
+<title>ตัดคลิปรีวิวบ้าน ๆ</title>
+<style>
+:root{--bg:#f7f1e9;--card:#fffdf9;--ink:#302a25;--muted:#766c62;--accent:#a94d32;--line:#e6d9cc;--green:#476b4d}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Noto Sans Thai",sans-serif;line-height:1.45}
+main{max-width:760px;margin:auto;padding:18px 14px 40px}
+header{padding:20px 4px 14px}h1{font-size:1.65rem;margin:0 0 7px}p{margin:6px 0}.sub{color:var(--muted);font-size:.95rem}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;margin:12px 0;box-shadow:0 3px 14px #50351a0a}
+label{display:block;font-weight:650;margin:12px 0 6px}
+input[type=text],select,input[type=number]{width:100%;padding:12px;border:1px solid #d7c8ba;border-radius:11px;background:white;font:inherit;color:var(--ink)}
+input[type=file]{width:100%;padding:10px 0;font:inherit}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+button,.button{display:block;width:100%;border:0;border-radius:12px;padding:13px 15px;background:var(--accent);color:white;font:inherit;font-weight:750;margin-top:12px;cursor:pointer}
+button:disabled{opacity:.45;cursor:not-allowed}.secondary{background:#eee3d7;color:var(--ink)}.note{font-size:.88rem;color:var(--muted)}
+#files{padding-left:20px;margin:8px 0}#files li{margin:5px 0;overflow-wrap:anywhere}
+progress{width:100%;height:14px;accent-color:var(--green);margin-top:10px}
+#status{white-space:pre-wrap;font-size:.94rem;margin-top:8px}
+video{width:100%;max-height:60vh;background:#171717;border-radius:12px;margin-top:12px}
+#download{display:none;text-align:center;text-decoration:none;background:var(--green);color:white;border-radius:12px;padding:13px;margin-top:12px;font-weight:750}
+details{margin-top:12px}summary{font-weight:700;cursor:pointer}
+.steps li{margin:7px 0}
+@media(max-width:420px){.row{grid-template-columns:1fr}h1{font-size:1.45rem}}
+</style>
+</head>
+<body>
+<main>
+<header>
+  <h1>🎬 ตัดคลิปรีวิวบ้าน ๆ</h1>
+  <p>รวมคลิปสินค้าให้เป็นวิดีโอแนวตั้ง 9:16 อัตโนมัติ</p>
+  <p class="sub">สำหรับ TikTok และ Shopee Video • ทำงานในเบราว์เซอร์ • ไม่อัปโหลดวิดีโอของคุณไปยังเซิร์ฟเวอร์ของเรา</p>
+</header>
+
+<section class="card">
+  <h2>1. เลือกคลิปจากมือถือ</h2>
+  <label for="videos">เลือกวิดีโอได้หลายไฟล์ (แนะนำ 2–8 คลิป)</label>
+  <input id="videos" type="file" accept="video/*" multiple>
+  <ul id="files"><li class="note">ยังไม่ได้เลือกคลิป</li></ul>
+  <p class="note">เคล็ดลับ: ถ่ายแนวตั้ง ใกล้สินค้าให้เห็นชัด และถือกล้องให้นิ่ง ใช้คลิปสั้น ๆ หลายมุมจะตัดต่อออกมาดูเป็นธรรมชาติกว่า</p>
+</section>
+
+<section class="card">
+  <h2>2. ตั้งค่าคลิป</h2>
+  <div class="row">
+    <div>
+      <label for="duration">ความยาวเป้าหมาย</label>
+      <select id="duration"><option value="30">ประมาณ 30 วินาที</option><option value="45">ประมาณ 45 วินาที</option><option value="60" selected>ประมาณ 60 วินาที</option></select>
+    </div>
+    <div>
+      <label for="quality">คุณภาพวิดีโอ</label>
+      <select id="quality"><option value="720">720 × 1280 (ประมวลผลง่ายกว่า)</option><option value="1080">1080 × 1920 (ไฟล์ใหญ่กว่า)</option></select>
+    </div>
+  </div>
+  <label for="hook">ข้อความเปิดคลิป (เก็บไว้เป็นแนวทางตอนโพสต์)</label>
+  <input id="hook" type="text" maxlength="80" placeholder="เช่น ใครเจอปัญหาแบบนี้ ลองดู">
+  <label for="product">ชื่อสินค้า / จุดเด่น</label>
+  <input id="product" type="text" maxlength="100" placeholder="เช่น ชั้นวางของ ประหยัดพื้นที่">
+  <label for="cta">ข้อความปิดคลิป</label>
+  <input id="cta" type="text" maxlength="80" placeholder="เช่น ดูรายละเอียดสินค้าได้ที่ตะกร้า">
+  <p class="note">รุ่นนี้จะรวมคลิปและปรับสัดส่วนวิดีโอให้อัตโนมัติ ส่วนข้อความด้านบนจะแสดงให้คัดลอกไปใช้เป็นแคปชัน/ข้อความประกอบโพสต์ ยังไม่ฝังตัวอักษรลงในภาพวิดีโอ</p>
+  <button id="make">สร้างวิดีโอ MP4</button>
+  <button id="copyText" class="secondary" type="button">คัดลอกข้อความรีวิว</button>
+</section>
+
+<section class="card">
+  <h2>3. ผลลัพธ์</h2>
+  <p class="note">การประมวลผลวิดีโอใช้หน่วยความจำและแบตเตอรี่ ควรเริ่มจากคลิปสั้น 2–3 คลิปและใช้คุณภาพ 720p ก่อน</p>
+  <progress id="progress" value="0" max="100"></progress>
+  <div id="status" role="status">พร้อมทำงาน เมื่อเลือกคลิปแล้วกด “สร้างวิดีโอ MP4”</div>
+  <video id="preview" controls playsinline hidden></video>
+  <a id="download" download="review-video.mp4">ดาวน์โหลดวิดีโอ MP4</a>
+</section>
+
+<section class="card">
+  <h2>วิธีใช้งาน</h2>
+  <ol class="steps">
+    <li>กดเลือกวิดีโอจากแกลเลอรี อนุญาตให้ Chrome เข้าถึงรูปภาพ/วิดีโอเมื่อระบบถาม</li>
+    <li>เลือกความยาว 30, 45 หรือ 60 วินาที และคุณภาพ 720p เพื่อเริ่มต้น</li>
+    <li>กด “สร้างวิดีโอ MP4” แล้วรอให้แถบความคืบหน้าเสร็จ</li>
+    <li>กด “ดาวน์โหลดวิดีโอ MP4” จากนั้นเปิดไฟล์จากโฟลเดอร์ Downloads</li>
+  </ol>
+  <details>
+    <summary>ถ้ากดแล้วไม่ทำงาน</summary>
+    <ul>
+      <li>เปิดหน้าเว็บด้วย Chrome เวอร์ชันล่าสุด และใช้หน้าเว็บผ่าน HTTPS</li>
+      <li>ลองคลิป 2–3 คลิป คลิปละ 5–15 วินาที และเลือก 720p</li>
+      <li>ปิดแอปอื่นก่อน เพราะการตัดต่อใช้ RAM มาก</li>
+      <li>ถ้าขึ้น Out of memory ให้ลดจำนวนคลิปหรือความละเอียด แล้วลองใหม่</li>
+      <li>บางเบราว์เซอร์/อุปกรณ์อาจไม่รองรับ FFmpeg WebAssembly อย่างสมบูรณ์</li>
+    </ul>
+  </details>
+</section>
+<p class="note">ความเป็นส่วนตัว: ไฟล์วิดีโอจะถูกประมวลผลในเบราว์เซอร์ แต่ตัวโปรแกรม FFmpeg จะถูกโหลดจาก CDN ภายนอกเมื่อเริ่มใช้งานครั้งแรก</p>
+</main>
+
+<script type="module">
+const $ = id => document.getElementById(id);
+const videosInput = $('videos');
+let ffmpeg = null;
+let outputUrl = null;
+let selectedFiles = [];
+
+function setStatus(msg){ $('status').textContent = msg; }
+function escapeText(s){return (s||'').trim();}
+videosInput.addEventListener('change', () => {
+  selectedFiles = Array.from(videosInput.files || []);
+  $('files').innerHTML = '';
+  if(!selectedFiles.length){$('files').innerHTML='<li class="note">ยังไม่ได้เลือกคลิป</li>';return;}
+  selectedFiles.forEach((f,i)=>{
+    const li=document.createElement('li');
+    li.textContent=`${i+1}. ${f.name} (${(f.size/1024/1024).toFixed(1)} MB)`;
+    $('files').appendChild(li);
+  });
+  setStatus(`เลือกแล้ว ${selectedFiles.length} คลิป`);
+});
+
+async function getFFmpeg(){
+  if(ffmpeg) return ffmpeg;
+  setStatus('กำลังโหลดเครื่องมือตัดต่อครั้งแรก อาจใช้เวลาสักครู่…');
+  const { FFmpeg } = await import('https://esm.sh/@ffmpeg/ffmpeg@0.12.10');
+  const { toBlobURL } = await import('https://esm.sh/@ffmpeg/util@0.12.2');
+  ffmpeg = new FFmpeg();
+  ffmpeg.on('log', ({message}) => {
+    if(message && /error|invalid|failed/i.test(message)) setStatus('กำลังประมวลผล…\\n'+message.slice(0,300));
+  });
+  ffmpeg.on('progress', ({progress}) => {
+    $('progress').value = Math.max(0,Math.min(99,Math.round((progress||0)*100)));
+  });
+  const base = 'https://unpkg.com/@ffmpeg/core@0.12.6/dist/umd';
+  await ffmpeg.load({
+    coreURL: await toBlobURL(`${base}/ffmpeg-core.js`, 'text/javascript'),
+    wasmURL: await toBlobURL(`${base}/ffmpeg-core.wasm`, 'application/wasm')
+  });
+  return ffmpeg;
+}
+
+$('make').addEventListener('click', async () => {
+  if(!selectedFiles.length){setStatus('กรุณาเลือกวิดีโออย่างน้อย 1 คลิปก่อน');return;}
+  if(selectedFiles.length > 12){setStatus('แนะนำไม่เกิน 12 คลิปต่อครั้ง เพื่อลดโอกาสที่มือถือจะหน่วยความจำเต็ม');return;}
+  const btn=$('make');
+  btn.disabled=true; $('progress').value=0; $('download').style.display='none'; $('preview').hidden=true;
+  if(outputUrl){URL.revokeObjectURL(outputUrl);outputUrl=null;}
+  let f;
+  const written=[];
+  try{
+    f=await getFFmpeg();
+    const target=Number($('duration').value);
+    const height=Number($('quality').value);
+    const width=Math.round(height*9/16);
+    const perClip=target/selectedFiles.length;
+    const list=[];
+    for(let i=0;i<selectedFiles.length;i++){
+      const file=selectedFiles[i];
+      const ext=(file.name.split('.').pop()||'mp4').toLowerCase().replace(/[^a-z0-9]/g,'')||'mp4';
+      const input=`input${i}.${ext}`;
+      const output=`clip${i}.mp4`;
+      await f.writeFile(input, new Uint8Array(await file.arrayBuffer())); written.push(input);
+      setStatus(`กำลังจัดคลิป ${i+1}/${selectedFiles.length}…\\nอาจใช้เวลาหลายนาที โปรดอย่าปิดหน้านี้`);
+      const args=['-i',input,'-t',String(perClip),'-vf',
+        `scale=${width}:${height}:force_original_aspect_ratio=increase,crop=${width}:${height},setsar=1,fps=30,format=yuv420p`,
+        '-af','aresample=async=1:first_pts=0',
+        '-c:v','libx264','-preset','ultrafast','-crf',height===720?'27':'25',
+        '-c:a','aac','-b:a','128k','-ar','44100','-ac','2',
+        '-movflags','+faststart','-y',output];
+      const code=await f.exec(args);
+      if(code!==0) throw new Error(`แปลงคลิปที่ ${i+1} ไม่สำเร็จ อาจเป็นเพราะรูปแบบไฟล์ไม่รองรับ`);
+      list.push(output); written.push(output);
+    }
+    setStatus('กำลังรวมคลิปทั้งหมดเป็นไฟล์เดียว…');
+    let concatText='';
+    for(const name of list) concatText+=`file '${name}'\\n`;
+    await f.writeFile('list.txt',new TextEncoder().encode(concatText));written.push('list.txt');
+    const concatCode=await f.exec(['-f','concat','-safe','0','-i','list.txt','-c','copy','-movflags','+faststart','-y','review-video.mp4']);
+    if(concatCode!==0) throw new Error('รวมคลิปไม่สำเร็จ ลองใช้ไฟล์วิดีโอรูปแบบ MP4');
+    written.push('review-video.mp4');
+    const data=await f.readFile('review-video.mp4');
+    const blob=new Blob([data],{type:'video/mp4'});
+    outputUrl=URL.createObjectURL(blob);
+    $('preview').src=outputUrl;$('preview').hidden=false;
+    $('download').href=outputUrl;$('download').style.display='block';
+    $('progress').value=100;
+    setStatus(`เสร็จแล้ว! รวม ${selectedFiles.length} คลิปเรียบร้อย\\nความยาวเป้าหมายประมาณ ${target} วินาที • ${width} × ${height}\\nหมายเหตุ: ถ้าคลิปต้นฉบับสั้นกว่าที่ต้องการ วิดีโอสุดท้ายอาจสั้นกว่าเป้าหมาย`);
+    for(const name of written){try{await f.deleteFile(name)}catch(e){}}
+  }catch(err){
+    console.error(err);
+    setStatus('ทำวิดีโอไม่สำเร็จ\\n'+(err?.message||String(err))+'\\n\\nลองใหม่ด้วยคลิป MP4 จำนวน 2–3 คลิป และเลือก 720p หากยังไม่ได้ ให้ปิด Chrome แล้วเปิดหน้าเว็บใหม่');
+  }finally{btn.disabled=false;}
+});
+
+$('copyText').addEventListener('click', async ()=>{
+  const hook=escapeText($('hook').value)||'ใครกำลังเจอปัญหานี้ ลองดู';
+  const product=escapeText($('product').value)||'สินค้าที่นำมารีวิว';
+  const cta=escapeText($('cta').value)||'ดูรายละเอียดเพิ่มเติมได้ที่ตะกร้าสินค้า';
+  const text=`${hook}\\nวันนี้ลองใช้${product}\\nเล่าให้ฟังตามที่เห็นจริง ใครสนใจ ${cta}`;
+  try{
+    await navigator.clipboard.writeText(text);
+    setStatus('คัดลอกข้อความรีวิวแล้ว สามารถนำไปวางในแคปชันได้');
+  }catch(e){
+    const ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();
+    const ok=document.execCommand('copy');ta.remove();
+    setStatus(ok?'คัดลอกข้อความรีวิวแล้ว':'คัดลอกอัตโนมัติไม่ได้ ข้อความรีวิว: \\n'+text);
+  }
+});
+</script>
+</body>
+</html>
